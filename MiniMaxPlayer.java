@@ -207,30 +207,6 @@ public class MiniMaxPlayer implements Player {
     }
 
     //Accounting for value of field locations as well as how many coins are in place
-    /*public int utility(char [][] gamefield) {
-        int rating = 0;
-        int[][] eval_table = {
-                {100, -28, 28, 26, 26, 28, -28, 100},
-                {-28, -50, -24, -23, -23, -24, -50, -28},
-                {28, -24, 27, 24, 24, 27, -24, 28},
-                {26, -23, 24, 0, 0, 24, -23, 26},
-                {26, -23, 24, 0, 0, 24, -23, 26},
-                {28, -24, 27, 24, 24, 27, -24, 28},
-                {-28, -50, -24, -23, -23, -24, -50, -28},
-                {100, -28, 28, 26, 26, 28, -28, 100}
-        };
-        for (int x = 0; x < 8; x++)
-            for (int y = 0; y < 8; y++) {
-                if (gamefield[x][y] == myColor) {
-                    rating = eval_table[x][y] + result;
-                    //ratingMaxPlayer = ratingMaxPlayer + eval_table[x][y];
-                    //rating++;
-                }
-            }
-        return rating;
-    }*/
-
-
     public int utility(char [][] gamefield) {
         //static board evaluation
         int ratingMaxPlayer = 0;
@@ -273,13 +249,6 @@ public class MiniMaxPlayer implements Player {
 
 
     /*public int utility(char [][] gameboard){
-        int stablePos = 1;
-        int semistablePos = 0;
-        int unstablePos = -1;
-
-    }
-     */
-    /*public int utility(char [][] gameboard){
         int stand = 0;
         for(int i=0; i<8; i++) {
             for (int j=0; j<8; j++) {
@@ -316,74 +285,6 @@ public class MiniMaxPlayer implements Player {
         }
         System.out.println(stand);
         return stand;
-    }
-
-     */
-
-    /*public int utility(char [][] helpBoard){
-        int score1 = 0;
-        //int score2 = 0;
-
-        int plainScore = 1;
-        int stableScore = 1000;
-        int nextToOpponentCornerScore = 100;
-        int cornerScore = 1000;
-        int borderScore = 80;
-        int innerCircleCornerSCore = 50;
-        int innerCircleBorderScore = 20;
-        int nextToEmptyCornerPenalty = -500;
-        int NextToBoarder = -10;
-
-
-        for(int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
-
-                boolean isCorner = (i == 0 && j == 0) || (i == 0 && j == 7) || (i == 7 && j == 0) || (i == 7 && j == 7);
-                boolean isBoarder = !isCorner && ((i == 0) || (j == 0) || (i == 7) || (j == 7));
-
-                boolean isInnerCircleCorner = i == 2 && j == 2 || i == 2 && j == 5 || i == 5 && j == 2 || i == 5 && j == 5;
-                boolean isInnerCircleBorder = !isInnerCircleCorner && ((i == 2) || (i == 5) || (j == 2) || (j == 5));
-
-                boolean isBoarderNextToCorner = (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 6 && j == 0) || (i == 7 && j == 0) || (i == 0 && j == 6) || (i == 0 && j == 7) || (i == 7 && j == 6) || (i == 6 && j == 7);
-
-                boolean isNextToUpL = (i == 0 && j == 1) || (i == 1 && j == 0) || (i == 1 && j == 1);
-                boolean isNextToUpR = (i == 6 && j == 0) || (i == 7 && j == 0) || (i == 6 && j == 1);
-                boolean isNextToDoL = (i == 0 && j == 6) || (i == 0 && j == 7) || (i == 1 && j == 6);
-                boolean isNextToDoR = (i == 7 && j == 6) || (i == 6 && j == 7) || (i == 6 && j == 6);
-                boolean isNextToCorner = isNextToUpL || isNextToUpR || isNextToDoL || isNextToDoR;
-
-                boolean isNextToEmptyUpL = helpBoard[0][0] == 0 && isNextToUpL;
-                boolean isNextToEmptyUpR = helpBoard[7][0] == 0 && isNextToUpR;
-                boolean isNextToEmptyDoL = helpBoard[0][7] == 0 && isNextToDoL;
-                boolean isNextToEmptyDoR = helpBoard[7][7] == 0 && isNextToDoR;
-                boolean isNextToEmptyCorner = isNextToEmptyUpL || isNextToEmptyUpR || isNextToEmptyDoL || isNextToEmptyDoR;
-
-                boolean isNextTo1UpL = helpBoard[0][0] == 1 && isNextToUpL;
-                boolean isNextTo1UpR = helpBoard[7][0] == 1 && isNextToUpR;
-                boolean isNextTo1DoL = helpBoard[0][7] == 1 && isNextToDoL;
-                boolean isNextTo1DoR = helpBoard[7][7] == 1 && isNextToDoR;
-                boolean isNextTo1Corner = isNextTo1UpL || isNextTo1UpR || isNextTo1DoL || isNextTo1DoR;
-
-                boolean isNextTo2UpL = helpBoard[0][0] == 2 && isNextToUpL;
-                boolean isNextTo2UpR = helpBoard[7][0] == 2 && isNextToUpR;
-                boolean isNextTo2DoL = helpBoard[0][7] == 2 && isNextToDoL;
-                boolean isNextTo2DoR = helpBoard[7][7] == 2 && isNextToDoR;
-                boolean isNextTo2Corner = isNextTo2UpL || isNextTo2UpR || isNextTo2DoL || isNextTo2DoR;
-
-
-                if (helpBoard[j][i] == myColor){
-                    score1 += plainScore;
-                    if(isCorner) score1 += borderScore;
-                    else if(isNextTo1Corner) score1 += stableScore;
-                    else if (isNextTo2Corner) score1 += nextToOpponentCornerScore;
-                    else if(isBoarder) score1 += cornerScore;
-                    else if(isInnerCircleCorner) score1 += innerCircleCornerSCore;
-                    else if(isInnerCircleBorder) score1 += innerCircleBorderScore;
-                    else if(isNextToEmptyCorner) score1 += nextToEmptyCornerPenalty;
-                }
-            }
-        }
-        return score1;
     }
 
      */
