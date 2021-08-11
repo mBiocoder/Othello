@@ -11,7 +11,7 @@ This game has been implemented in such a way that begins to make the first move.
 5. Random player vs. Random player -> Run MiniMaxPlayer class and (re)set the players 1 and 2
 6. Graphical user interface (GUI) version -> Run Othello class
 
-In the GUI version a human will play against the AI using minimax for decision of the next valid move. The GUI has a beach motive and looks best when played in full screen mode ;)  The GUI will always show you whose turn it is to set the next coin. When playing in GUI mode, the board configuration will also be printed on the console at the same time.
+In the GUI version (using JavaFx) a human will play against the AI using minimax for decision of the next valid move. The GUI has a beach motive and looks best when played in full screen mode ;)  The GUI will always show you whose turn it is to set the next coin. When playing in GUI mode, the board configuration will also be printed on the console at the same time. 
 
 The minimax algorithm uses an utility function which assigns each valid position on the board a particular value for the next move. It tries to maximize its own profit and minimize the opponents profits, which is the general idea behind the algorithm. If you would like to read more about the minimax algorithm; please refer to the following page: 
 https://en.wikipedia.org/wiki/Minimax
